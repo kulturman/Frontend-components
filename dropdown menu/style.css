@@ -22,6 +22,8 @@ body {
 
 .menu-main {
     display: flex;
+    margin: 0 auto;
+    width: 90%;
 }
 
 .menu__sub {
@@ -40,6 +42,7 @@ body {
 
 .menu__sub__visual {
     width: 60%;
+    padding: 10px 0;
 }
 
 .menu__sub__visual__img {
@@ -54,11 +57,13 @@ body {
 .menu__item {
     padding: 0.5rem 2rem;
     color: #292929;
+    border-bottom: 2px solid var(--border-grey);
 }
 
 .menu__sub__categories__items {
     list-style: none;
     padding-left: 0;
+    line-height: 1.5;
 }
 
 .menu__sub__categories__header {
@@ -72,11 +77,20 @@ body {
     color: grey;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .menu__item__link {
     text-decoration: none;
     color: #555;
     font-size: 0.9rem;
     font-weight: 800;
+}
+
+.menu__sub__categories__item__link:hover {
+    text-decoration: underline;
 }
 
 .menu__item__link:hover {
