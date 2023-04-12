@@ -1,0 +1,92 @@
+{
+    "home" : {
+        "firstColumn": {
+            "label": "Top categories For home",
+            "items": [
+                {
+                    "link": "#",
+                    "text": "Apple home"
+                },
+                {
+                    "link": "#",
+                    "text": "Banana home"
+                },
+                {
+                    "link": "#",
+                    "text": "Pear home"
+                },
+                {
+                    "link": "#",
+                    "text": "Orange home"
+                },
+                {
+                    "link": "#",
+                    "text": "Watermelon home"
+                }
+            ]
+        },
+        "secondColumn": {
+            "label": "Additional categories for Home",
+            "items": [
+                {
+                    "link": "#",
+                    "text": "Circle home"
+                },
+                {
+                    "link": "#",
+                    "text": "Square home"
+                },
+                {
+                    "link": "#",
+                    "text": "Triangle home"
+                }
+            ]
+        },
+        "image": "./assets/welcome.png"
+    },
+    "motors" : {
+        "firstColumn": {
+            "label": "Motors top categories",
+            "items": [
+                {
+                    "link": "#",
+                    "text": "Top motors one"
+                },
+                {
+                    "link": "#",
+                    "text": "Top motors two"
+                },
+                {
+                    "link": "#",
+                    "text": "Pear home"
+                },
+                {
+                    "link": "#",
+                    "text": "Orange home"
+                },
+                {
+                    "link": "#",
+                    "text": "Watermelon home"
+                }
+            ]
+        },
+        "secondColumn": {
+            "label": "Motors 2nd category",
+            "items": [
+                {
+                    "link": "#",
+                    "text": "Motors second one"
+                },
+                {
+                    "link": "#",
+                    "text": "Motors second 3"
+                },
+                {
+                    "link": "#",
+                    "text": "Motors"
+                }
+            ]
+        },
+        "image": "./assets/motor.png"
+    }
+}
