@@ -1,0 +1,22 @@
+{
+  "name": "frontend-components",
+  "version": "1.0.0",
+  "description": "Frontend components to pratice JS",
+  "main": "None",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kulturman/Frontend-components.git"
+  },
+  "author": "kulturman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kulturman/Frontend-components/issues"
+  },
+  "homepage": "https://github.com/kulturman/Frontend-components#readme",
+  "devDependencies": {
+    "tsc": "^2.0.4"
+  }
+}
