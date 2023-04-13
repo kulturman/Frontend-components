@@ -1,4 +1,33 @@
 "use strict";
+const searchBarInput = document.querySelector('.search__bar__input');
+const suggestionsElement = document.querySelector('.search__suggestions__list');
+searchBarInput === null || searchBarInput === void 0 ? void 0 : searchBarInput.addEventListener('input', e => {
+    const input = e.target;
+    const inputValue = input.value;
+    //Let's just simulate an HTTP call, backend is not the important thing here
+    setTimeout(() => {
+        onSuggestionsLoaded(getAutocompleteHandler(inputValue));
+    }, 1000);
+});
+function wrapBoldedCharacters(inputValue, suggestion) {
+    if (suggestion.startsWith(inputValue)) {
+        return `${suggestion.substring(0, inputValue.length)}<b>${suggestion.substring(inputValue.length, suggestion.length)}</b>`;
+    }
+    return `<b>${suggestion}</b>`;
+}
+function onSuggestionsLoaded(suggestions) {
+    console.log(suggestions);
+    if (suggestions.length > 0) {
+        suggestionsElement.classList.add('search__actions--autosuggest');
+    }
+    else {
+        suggestionsElement.classList.remove('search__actions--autosuggest');
+    }
+    suggestionsElement.innerHTML = suggestions.map(suggestion => createSuggestionListElement(suggestion)).join('');
+}
+function createSuggestionListElement(suggestion) {
+    return `<li>${wrapBoldedCharacters(searchBarInput.value, suggestion.suggestion) + (suggestion.auxiliary ? ' - ' + suggestion.auxiliary : '')}</li>`;
+}
 function getRandomString(length) {
     const characterChoices = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
     const characters = [];
@@ -22,16 +51,16 @@ function generateSuggestion(prefix) {
     }
     return prefix + getRandomString(getRandomInteger({ min: 1, max: 10 }));
 }
-function getAutocompleteHandler(data) {
+function getAutocompleteHandler(inputValue) {
     const MAX_CHARS = 10;
     const NUM_AUTOCOMPLETE_RESULTS = 10;
     const RATIO_AUXILIARY_DATA = 0.1;
-    if (data.length > MAX_CHARS) {
+    if (inputValue.length > MAX_CHARS || inputValue.length <= 0) {
         return [];
     }
     const results = [];
     while (results.length < NUM_AUTOCOMPLETE_RESULTS) {
-        const suggestion = generateSuggestion(data);
+        const suggestion = generateSuggestion(inputValue);
         if (results.find((result) => result.suggestion === suggestion)) {
             continue;
         }
@@ -49,3 +78,4 @@ function getAutocompleteHandler(data) {
     }
     return results;
 }
+//# sourceMappingURL=index.js.map
