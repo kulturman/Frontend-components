@@ -7,15 +7,7 @@ type Result = {
 
 const searchBarInput = document.querySelector('.search__bar__input') as HTMLInputElement;
 const suggestionsElement = document.querySelector('.search__suggestions__list') as HTMLInputElement;
-
-searchBarInput?.addEventListener('input', e => {
-  const input = e.target as HTMLInputElement;
-  const inputValue = input.value;
-  //Let's just simulate an HTTP call, backend is not the important thing here
-  setTimeout(() => {
-    onSuggestionsLoaded(getAutocompleteHandler(inputValue));
-  }, 1000);
-});
+const searchActionsElement = document.querySelector('.search__suggestions__list') as HTMLInputElement;
 
 function wrapBoldedCharacters(inputValue: string, suggestion: string) {
   if (suggestion.startsWith(inputValue)) {
@@ -24,7 +16,7 @@ function wrapBoldedCharacters(inputValue: string, suggestion: string) {
   return `<b>${suggestion}</b>`;
 }
 
-function onSuggestionsLoaded(suggestions: Result[]) {console.log(suggestions);
+function onSuggestionsLoaded(suggestions: Result[]) {
   if (suggestions.length > 0) {
     suggestionsElement.classList.add('search__actions--autosuggest');
   }
@@ -35,7 +27,7 @@ function onSuggestionsLoaded(suggestions: Result[]) {console.log(suggestions);
 }
 
 function createSuggestionListElement(suggestion: Result): string {
-  return `<li>${wrapBoldedCharacters(searchBarInput.value, suggestion.suggestion) + (suggestion.auxiliary ? ' - ' + suggestion.auxiliary: '')}</li>`;
+  return `<li class="search__suggestions__list__item">${wrapBoldedCharacters(searchBarInput.value, suggestion.suggestion) + (suggestion.auxiliary ? ' - ' + suggestion.auxiliary: '')}</li>`;
 }
 
 function getRandomString(length: number) {
@@ -100,3 +92,21 @@ function getAutocompleteHandler(inputValue: string): Result[] {
   }
   return results;
 }
+
+searchBarInput?.addEventListener('input', e => {
+  const input = e.target as HTMLInputElement;
+  const inputValue = input.value;
+  //Let's just simulate an HTTP call, backend is not the important thing here
+  setTimeout(() => {
+    onSuggestionsLoaded(getAutocompleteHandler(inputValue));
+  }, 1000);
+});
+
+suggestionsElement.addEventListener('click', e => {
+  const itemsClassName = 'search__suggestions__list__item';
+  const element = e.target as HTMLInputElement;
+
+  if (element.classList.contains(itemsClassName)) {
+    alert(`You are searching for: ${element.innerText}`);
+  }
+});
