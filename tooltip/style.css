@@ -1,5 +1,6 @@
 .tooltip {
   width: 10rem;
+  user-select: none;
   height: 2rem;
   background: black;
   text-align: center;
@@ -10,8 +11,25 @@
 .tooltip__icon {
   fill: white;
   padding: .2rem;
+  height: 2rem;
+  height: 1.8rem;
 }
 
 .tooltip__icon:last-child {
   border-left: 1px solid white;
+}
+
+body {
+  padding: 10rem;
+}
+
+.tooltip__arrow {
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #000;
+  position: absolute;
+  bottom: -10px;
+  left: calc(5rem - 15px / 2);
 }
