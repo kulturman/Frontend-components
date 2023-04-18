@@ -6,7 +6,27 @@ document.addEventListener('click', e => {
   const editButton = e.target.closest('.tooltip__icon--edit');
   
   if (editButton) {
-    console.log(getSelectionData())
+    const { selection, selectedText } = getSelectionData();
+    const { anchorNode, anchorOffset, focusOffset } = selection;
+    const wholeText = selection.anchorNode.data;
+    const childNodes = anchorNode.parentElement.childNodes;
+    const parent = selection.anchorNode.parentNode;
+    const clonedNode = document.createElement(parent.nodeName);
+
+    Array.from(childNodes).forEach(node => {
+      if (node === anchorNode) {
+        //We need to split text in three parts and create nodes
+        const firstPart = wholeText.substring(0, anchorOffset);
+        const lastPart = wholeText.substring(focusOffset);
+        clonedNode.insertAdjacentHTML('beforeend', `${firstPart}<mark class="highlited">${selectedText}</mark>${lastPart}`);
+      }
+      else {
+        clonedNode.insertAdjacentHTML('beforeend', `${node.outerHTML || node.textContent}`);
+      }
+    });
+
+    parent.replaceWith(clonedNode);
+    closeToolTip();
   }
 });
 
@@ -39,7 +59,7 @@ document.addEventListener('selectionchange', e => {
     // Cross-paragraph selection
     return;
   }
-
+  
   if (!selectionData.selectedText) {
     isSelectionPending = false;
     closeToolTip();

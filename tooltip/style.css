@@ -1,3 +1,8 @@
+.highlited {
+  background-color: rgb(210, 231, 209);
+  cursor: pointer;
+}
+
 .tooltip {
   width: 10rem;
   animation: slideup .2s;
