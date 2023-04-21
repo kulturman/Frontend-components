@@ -1,3 +1,4 @@
+import { handleComboBox } from "./comboxBox";
 import { validateField } from "./validation";
 
 const inputFields = document.querySelectorAll(
@@ -10,6 +11,8 @@ inputFields.forEach((inputField) => {
   );
   inputField.addEventListener("keydown", (event) => restrictField(event));
 });
+
+handleComboBox();
 
 const restrictionFunctionsMap = {
     'day' : (event: Event) => isNumberRestricted(event as KeyboardEvent, 2),

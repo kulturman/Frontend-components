@@ -1,6 +1,6 @@
 :root {
-  --error-red: #DB4C3F;
-  --light-grey: #F1F1F1;
+  --error-red: #db4c3f;
+  --light-grey: #f1f1f1;
 }
 
 body {
@@ -41,6 +41,7 @@ body {
 .signup__field__inputs__selection {
   font-size: 13px;
   width: 5rem;
+  cursor: pointer;
 }
 
 .signup__field__inputs__input--error {
@@ -51,4 +52,30 @@ body {
   color: var(--error-red);
   font-size: 13px;
   margin-top: 0.5rem;
+}
+
+.signup__field__inputs__selection {
+  position: relative;
+}
+
+.signup__field__inputs__input__list {
+  list-style: none;
+  width: 140px;
+  position: absolute;
+  top: -15px;
+  background: white;
+  left: -5px;
+  border: 1px solid gray;
+  line-height: 2;
+  padding-left: 0px;
+  display: none;
+}
+
+.signup__field__inputs__input__list__item {
+  padding-left: 15px;
+}
+
+.signup__field__inputs__input__list__item:hover {
+  background-color: grey;
+  color: white;
 }
