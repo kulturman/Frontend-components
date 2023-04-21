@@ -1,7 +1,54 @@
-.signup__field__input--error {
-  border: 1px solid red;
+:root {
+  --error-red: #DB4C3F;
+  --light-grey: #F1F1F1;
+}
+
+body {
+  font-family: Arial;
+}
+
+.wrapper {
+  background: var(--light-grey);
+  padding: 1rem;
+  width: 20rem;
+  margin: 0 auto;
+}
+
+.signup__field {
+  border: none;
+}
+
+.signup__field__header {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.signup__field__inputs {
+  display: flex;
+  flex-direction: row;
+}
+
+.signup__field__inputs__input {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 2rem;
+  background: white;
+  border: 1px solid grey;
+  padding: 0.2rem;
+  margin-right: 0.5rem;
+}
+
+.signup__field__inputs__selection {
+  font-size: 13px;
+  width: 5rem;
+}
+
+.signup__field__inputs__input--error {
+  border: 1px solid var(--error-red);
 }
 
 .signup__field__error {
-  color: red;
+  color: var(--error-red);
+  font-size: 13px;
+  margin-top: 0.5rem;
 }

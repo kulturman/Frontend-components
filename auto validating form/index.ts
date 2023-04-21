@@ -1,7 +1,9 @@
-const inputFields = document.querySelectorAll(".signup__field__input");
+const inputFields = document.querySelectorAll(
+  ".signup__field__inputs__input"
+) as NodeListOf<HTMLInputElement>;
 
 inputFields.forEach((inputField) => {
-  inputField.addEventListener("blur", validateField);
+  inputField.addEventListener("blur", event => validateField(event.target as HTMLInputElement));
 });
 
 class ValidationError extends Error {
@@ -15,6 +17,23 @@ function validateName(name: string) {
   const nameRegex = /^[a-zA-Z]+$/;
   if (!nameRegex.test(name)) {
     throw new ValidationError("Please enter a valid name");
+  }
+}
+
+function validatePassword(password: string) {
+  if (!password) {
+    throw new ValidationError("Password cannot be empty");
+  }
+  if (password.length < 6) {
+    throw new ValidationError("Password length too short");
+  }
+}
+
+function validateConfirmPassword(password: string) {
+  const passwordField = document.querySelector('.signup__field__inputs__input--password') as HTMLInputElement;
+
+  if (password && password !== passwordField.value) {
+    throw new ValidationError("Password did not match");
   }
 }
 
@@ -86,30 +105,36 @@ const validationMapping = {
   day: validateDay,
   year: validateYear,
   phoneNumber: validatePhoneNumber,
+  password: validatePassword,
+  confirmPassword: validateConfirmPassword,
 };
 
 type FormFieldName = keyof typeof validationMapping;
 
-function validateField(event: Event) {
-  const target = event.target as HTMLInputElement;
-  const errorField = target?.parentElement?.querySelector(
-    ".signup__field__error"
-  );
-  const fieldName = target.dataset["field"] as FormFieldName;
-  
+function validateField(inputField: HTMLInputElement) {
+  const errorField = inputField.parentElement?.parentElement
+    ?.querySelector('.signup__field__error') as HTMLInputElement;
+  const fieldName = inputField.dataset["field"] as FormFieldName;
+
   if (!errorField) {
     return;
   }
 
   try {
-    validationMapping[fieldName](target.value);
-    target.classList.remove("signup__field__input--error");
+    const validate = validationMapping[fieldName];
+    validate(inputField.value);
+    if (fieldName === 'password') {
+        //We also have to validate confirmationPassword field
+       const confirmationPasswordElement = document.querySelector('.signup__field__inputs__input--confirm-password') as HTMLInputElement;
+       validateField(confirmationPasswordElement);
+   }
+   inputField.classList.remove("signup__field__input--error");
     errorField.innerHTML = "";
   } catch (exception) {
     if (!(exception instanceof ValidationError)) {
-        throw exception;
+      throw exception;
     }
-    target.classList.add("signup__field__input--error");
+    inputField.classList.add("signup__field__input--error");
     errorField.innerHTML = exception.message;
   }
 }

@@ -2,48 +2,124 @@
 <html>
   <head>
     <script defer src="./dist/index.js"></script>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
+
   </head>
   <body>
     <div class="wrapper">
       <form class="signup">
         <fieldset class="signup__field signup__field--name">
           <legend class="signup__field__header">Name</legend>
-          <input data-field="name" type="text" class="signup__field__input signup__field__input--firstname" placeholder="First" aria-label="First Name" />
-          <input data-field="name" type="text" class="signup__field__input signup__field__input--lastname" placeholder="Last" aria-label="Last Name" />
+          <div class="signup__field__inputs">
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--name"
+              data-field="name"
+              placeholder="First"
+              aria-label="First Name"
+            />
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--name"
+              data-field="name"
+              placeholder="Last"
+              aria-label="Last Name"
+            />
+          </div>
           <div class="signup__field__error"></div>
         </fieldset>
         <fieldset class="signup__field signup__field--username">
           <legend class="signup__field__header">Choose your username</legend>
-          <input data-field="username" type="text" class="signup__field__input signup__field__input--username" aria-label="Username" />
+          <div class="signup__field__inputs">
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--username"
+              data-field="username"
+              aria-label="Username"
+            />
+          </div>
           <div class="signup__field__error"></div>
         </fieldset>
         <fieldset class="signup__field signup__field--password">
           <legend class="signup__field__header">Create a password</legend>
-          <input data-field="password" type="password" class="signup__field__input signup__field__input--password" aria-label="Password" />
+          <div class="signup__field__inputs">
+            <input
+              type="password"
+              class="signup__field__inputs__input signup__field__inputs__input--password"
+              data-field="password"
+              aria-label="Password"
+            />
+          </div>
+          <p class="signup__field__guide"></p>
           <div class="signup__field__error"></div>
         </fieldset>
         <fieldset class="signup__field signup__field--confirm-password">
           <legend class="signup__field__header">Confirm your password</legend>
-          <input data-field="confirm-password" type="password" class="signup__field__input signup__field__input--confirm-password" aria-label="Confirm Password" />
+          <div class="signup__field__inputs">
+            <input
+              type="password"
+              class="signup__field__inputs__input signup__field__inputs__input--confirm-password"
+              data-field="confirmPassword"
+              aria-label="Confirm Password"
+            />
+          </div>
           <div class="signup__field__error"></div>
         </fieldset>
         <fieldset class="signup__field signup__field--birthday">
           <legend class="signup__field__header">Birthday</legend>
-          <div class="signup__field__selection">Month</div>
-          <input type="hidden" class="signup__field__input signup__field__input--birth-month" aria-label="Month"/>
-          <input data-field="day" type="text" class="signup__field__input signup__field__input--birth-day" placeholder="Day" aria-label="Day" />
-          <input data-field="year" type="text" class="signup__field__input signup__field__input--birth-year" placeholder="Year" aria-label="Year" />
+          <div class="signup__field__inputs">
+            <div
+              class="signup__field__inputs__input signup__field__inputs__selection"
+            >
+              Month
+            </div>
+            <input
+              type="hidden"
+              class="signup__field__inputs__input--birth-month"
+              data-field="month"
+              aria-label="Month"
+            />
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--birth-day"
+              placeholder="Day"
+              data-field="day"
+              aria-label="Day"
+            />
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--birth-year"
+              placeholder="Year"
+              data-field="year"
+              aria-label="Year"
+            />
+          </div>
           <div class="signup__field__error"></div>
         </fieldset>
         <fieldset class="signup__field signup__field--phone">
           <legend class="signup__field__header">Mobile phone</legend>
-          <input data-field="phoneNumber" type="text" class="signup__field__input signup__field__input--phone" aria-label="Phone" />
+          <div class="signup__field__inputs">
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--phone"
+              data-field="phoneNumber"
+              aria-label="Phone"
+            />
+          </div>
           <div class="signup__field__error"></div>
         </fieldset>
         <fieldset class="signup__field signup__field--current-email">
-          <legend class="signup__field__header">Your current email address</legend>
-          <input data-field="email" type="text" class="signup__field__input signup__field__input--current-email" aria-label="Email" />
+          <legend class="signup__field__header">
+            Your current email address
+          </legend>
+          <div class="signup__field__inputs">
+            <input
+              type="text"
+              class="signup__field__inputs__input signup__field__inputs__input--current-email"
+              data-field="email"
+              aria-label="Email"
+            />
+          </div>
           <div class="signup__field__error"></div>
         </fieldset>
       </form>
