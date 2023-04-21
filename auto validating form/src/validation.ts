@@ -1,14 +1,3 @@
-const inputFields = document.querySelectorAll(
-  ".signup__field__inputs__input"
-) as NodeListOf<HTMLInputElement>;
-
-inputFields.forEach((inputField) => {
-  inputField.addEventListener("blur", (event) =>
-    validateField(event.target as HTMLInputElement)
-  );
-  inputField.addEventListener("keydown", (event) => restrictField(event));
-});
-
 class ValidationError extends Error {
   constructor(public message: string) {
     super();
@@ -16,52 +5,14 @@ class ValidationError extends Error {
   }
 }
 
-const restrictionFunctionsMap = {
-    'day' : (event: Event) => isNumberRestricted(event as KeyboardEvent, 2),
-    'year' : (event: Event) => isNumberRestricted(event as KeyboardEvent, 4)
-};
-
-type RestritedField = keyof typeof restrictionFunctionsMap;
-
-function restrictField(event: KeyboardEvent) {
-    const target = event.target as HTMLInputElement;
-    const shouldRestrict = restrictionFunctionsMap[target.dataset['field'] as RestritedField];
-
-    if (shouldRestrict !== undefined) {
-        if (shouldRestrict(event)) {
-            event.preventDefault();
-        }
-    }
-}
-
-function isNumberRestricted(event: KeyboardEvent, maxLength: number) {
-  const specialKeys = ["Enter", "Backspace", "Tab"];
-  const target = event.target as HTMLInputElement;
-  const proposedInput = target.value + event.key;
-
-  if (specialKeys.includes(event.key)) {
-    return false;
-  }
-  
-  if (proposedInput.length > maxLength) {
-    return true;
-  }
-  const numberRegex = /^[0-9]+$/;
-
-  if (!numberRegex.test(proposedInput)) {
-    return true;
-  }
-  return false;
-}
-
-function validateName(name: string) {
+export function validateName(name: string) {
   const nameRegex = /^[a-zA-Z]+$/;
   if (!nameRegex.test(name)) {
     throw new ValidationError("Please enter a valid name");
   }
 }
 
-function validatePassword(password: string) {
+export function validatePassword(password: string) {
   if (!password) {
     throw new ValidationError("Password cannot be empty");
   }
@@ -70,7 +21,7 @@ function validatePassword(password: string) {
   }
 }
 
-function validateConfirmPassword(password: string) {
+export function validateConfirmPassword(password: string) {
   const passwordField = document.querySelector(
     ".signup__field__inputs__input--password"
   ) as HTMLInputElement;
@@ -80,7 +31,7 @@ function validateConfirmPassword(password: string) {
   }
 }
 
-function validateEmail(email: string) {
+export function validateEmail(email: string) {
   const emailRegex = /^[a-zA-Z0-9]{1}[a-zA-Z0-9@._-]+[a-zA-Z]$/;
   if (!emailRegex.test(email)) {
     throw new ValidationError("Please enter a valid email");
@@ -93,28 +44,28 @@ function validateEmail(email: string) {
   }
 }
 
-function validateUsername(username: string) {
+export function validateUsername(username: string) {
   const usernameRegex = /^[a-zA-Z0-9._]+$/;
   if (!usernameRegex.test(username)) {
     throw new ValidationError("Please enter a valid username");
   }
 }
 
-function validateDay(day: string) {
+export function validateDay(day: string) {
   const dayRegex = /^[0-9]{1,2}$/;
   if (!dayRegex.test(day)) {
     throw new ValidationError("Please enter a valid day");
   }
 }
 
-function validateYear(year: string) {
+export function validateYear(year: string) {
   const yearRegex = /^[0-9]{4}$/;
   if (!yearRegex.test(year)) {
     throw new ValidationError("Please enter a valid year");
   }
 }
 
-function validatePhoneNumber(phoneNumber: string) {
+export function validatePhoneNumber(phoneNumber: string) {
   const FORMATTING_CHARACTERS = ["(", ")", "-"];
   function validateFormattedNumber() {
     const regex = /^[0-9(]{1}[0-9)-]+[0-9]$/;
@@ -141,7 +92,7 @@ function validatePhoneNumber(phoneNumber: string) {
   validateNonformattedNumber();
 }
 
-const validationMapping = {
+export const validationMapping = {
   name: validateName,
   email: validateEmail,
   username: validateUsername,
@@ -152,9 +103,9 @@ const validationMapping = {
   confirmPassword: validateConfirmPassword,
 };
 
-type FormFieldName = keyof typeof validationMapping;
+export type FormFieldName = keyof typeof validationMapping;
 
-function validateField(inputField: HTMLInputElement) {
+export function validateField(inputField: HTMLInputElement) {
   const errorField = inputField.parentElement?.parentElement?.querySelector(
     ".signup__field__error"
   ) as HTMLInputElement;
