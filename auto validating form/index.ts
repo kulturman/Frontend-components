@@ -3,7 +3,10 @@ const inputFields = document.querySelectorAll(
 ) as NodeListOf<HTMLInputElement>;
 
 inputFields.forEach((inputField) => {
-  inputField.addEventListener("blur", event => validateField(event.target as HTMLInputElement));
+  inputField.addEventListener("blur", (event) =>
+    validateField(event.target as HTMLInputElement)
+  );
+  inputField.addEventListener("keydown", (event) => restrictField(event));
 });
 
 class ValidationError extends Error {
@@ -11,6 +14,44 @@ class ValidationError extends Error {
     super();
     this.message = message;
   }
+}
+
+const restrictionFunctionsMap = {
+    'day' : (event: Event) => isNumberRestricted(event as KeyboardEvent, 2),
+    'year' : (event: Event) => isNumberRestricted(event as KeyboardEvent, 4)
+};
+
+type RestritedField = keyof typeof restrictionFunctionsMap;
+
+function restrictField(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    const shouldRestrict = restrictionFunctionsMap[target.dataset['field'] as RestritedField];
+
+    if (shouldRestrict !== undefined) {
+        if (shouldRestrict(event)) {
+            event.preventDefault();
+        }
+    }
+}
+
+function isNumberRestricted(event: KeyboardEvent, maxLength: number) {
+  const specialKeys = ["Enter", "Backspace", "Tab"];
+  const target = event.target as HTMLInputElement;
+  const proposedInput = target.value + event.key;
+
+  if (specialKeys.includes(event.key)) {
+    return false;
+  }
+  
+  if (proposedInput.length > maxLength) {
+    return true;
+  }
+  const numberRegex = /^[0-9]+$/;
+
+  if (!numberRegex.test(proposedInput)) {
+    return true;
+  }
+  return false;
 }
 
 function validateName(name: string) {
@@ -30,7 +71,9 @@ function validatePassword(password: string) {
 }
 
 function validateConfirmPassword(password: string) {
-  const passwordField = document.querySelector('.signup__field__inputs__input--password') as HTMLInputElement;
+  const passwordField = document.querySelector(
+    ".signup__field__inputs__input--password"
+  ) as HTMLInputElement;
 
   if (password && password !== passwordField.value) {
     throw new ValidationError("Password did not match");
@@ -112,8 +155,9 @@ const validationMapping = {
 type FormFieldName = keyof typeof validationMapping;
 
 function validateField(inputField: HTMLInputElement) {
-  const errorField = inputField.parentElement?.parentElement
-    ?.querySelector('.signup__field__error') as HTMLInputElement;
+  const errorField = inputField.parentElement?.parentElement?.querySelector(
+    ".signup__field__error"
+  ) as HTMLInputElement;
   const fieldName = inputField.dataset["field"] as FormFieldName;
 
   if (!errorField) {
@@ -123,12 +167,14 @@ function validateField(inputField: HTMLInputElement) {
   try {
     const validate = validationMapping[fieldName];
     validate(inputField.value);
-    if (fieldName === 'password') {
-        //We also have to validate confirmationPassword field
-       const confirmationPasswordElement = document.querySelector('.signup__field__inputs__input--confirm-password') as HTMLInputElement;
-       validateField(confirmationPasswordElement);
-   }
-   inputField.classList.remove("signup__field__input--error");
+    if (fieldName === "password") {
+      //We also have to validate confirmationPassword field
+      const confirmationPasswordElement = document.querySelector(
+        ".signup__field__inputs__input--confirm-password"
+      ) as HTMLInputElement;
+      validateField(confirmationPasswordElement);
+    }
+    inputField.classList.remove("signup__field__input--error");
     errorField.innerHTML = "";
   } catch (exception) {
     if (!(exception instanceof ValidationError)) {
