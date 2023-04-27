@@ -40,5 +40,6 @@
     margin-top: 2rem;
 }
 
-.avatar__image {
+.loader--invisible {
+    display: none;
 }
