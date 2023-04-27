@@ -7,13 +7,16 @@ const tweetsContainerElement = document.querySelector(
 ) as HTMLDivElement;
 const loaderElement = document.querySelector(".loader");
 let isDataLoading = false;
+let isThereisMoreData = false;
 
 function loadData() {
   loaderElement?.classList.remove("loader--invisible");
-    isDataLoading = true;
+  isDataLoading = true;
+
   tweetLoader.loadData(dataToLoad).then((loadedData) => {
     loaderElement?.classList.add("loader--invisible");
     isDataLoading = false;
+    isThereisMoreData = loadedData.isThereMoreData;
     dataToLoad.lastId = loadedData.lastId;
     loadedData.tweets.forEach((tweet) => renderTweet(tweet));
   });
@@ -103,7 +106,7 @@ document.addEventListener("scroll", (event) => {
   const scrollLimit = document.body.offsetHeight;
   const scrollThreshold = 30;
 
-  if (scrollLimit - scrolledTo <= scrollThreshold && !isDataLoading) {
+  if (scrollLimit - scrolledTo <= scrollThreshold && !isDataLoading && isThereisMoreData) {
     loadData();
   }
 });
