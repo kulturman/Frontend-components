@@ -1,18 +1,21 @@
 import { LoadDataRequest, Tweet, TweetLoader } from "./fakeBackend";
 
 const tweetLoader = new TweetLoader();
-const dataToLoad: LoadDataRequest = { lastId: 0, pageSize: 5 };
+const dataToLoad: LoadDataRequest = { lastId: 0, pageSize: 15 };
 const tweetsContainerElement = document.querySelector(
   ".tweets"
 ) as HTMLDivElement;
 const loaderElement = document.querySelector(".loader");
+let isDataLoading = false;
 
 function loadData() {
   loaderElement?.classList.remove("loader--invisible");
-
-  tweetLoader.loadData(dataToLoad).then((tweets) => {
+    isDataLoading = true;
+  tweetLoader.loadData(dataToLoad).then((loadedData) => {
     loaderElement?.classList.add("loader--invisible");
-    tweets.forEach((tweet) => renderTweet(tweet));
+    isDataLoading = false;
+    dataToLoad.lastId = loadedData.lastId;
+    loadedData.tweets.forEach((tweet) => renderTweet(tweet));
   });
 }
 
@@ -94,3 +97,13 @@ function renderTweet(tweet: Tweet) {
 }
 
 loadData();
+
+document.addEventListener("scroll", (event) => {
+  const scrolledTo = window.innerHeight + window.scrollY;
+  const scrollLimit = document.body.offsetHeight;
+  const scrollThreshold = 30;
+
+  if (scrollLimit - scrolledTo <= scrollThreshold && !isDataLoading) {
+    loadData();
+  }
+});
