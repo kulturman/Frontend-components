@@ -1,0 +1,44 @@
+.tweet__icon {
+    width: 2rem;
+}
+
+.avatar__image {
+    width: 10rem;
+}
+
+.tweet {
+    display: flex;
+    gap: 1.5rem;
+    border: 1px solid grey;
+    padding: 0 1rem;
+    justify-content: space-around;
+}
+
+.tweet__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tweet__footer {
+    display: flex;
+    gap: 2rem;
+}
+
+.tweet__footer__stats {
+    display: flex;
+    align-items: center;
+}
+
+.tweet__main__header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.tweet__menu {
+    margin-top: 2rem;
+}
+
+.avatar__image {
+}
